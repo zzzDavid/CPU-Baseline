@@ -53,8 +53,7 @@ class MobileNetV1(nn.Module):
         x = self.fc(x)
         return x
 
-def test_latency(input_size=(1, 3, 224, 224), avg_run=100):
-    torch.set_num_threads(1);
+def test_latency(input_size=(1, 3, 224, 224), avg_run=10):
     model = MobileNetV1(ch_in=3, n_classes=1000).cpu()
     x = torch.randn(input_size, device="cpu")
     start = perf_counter()
@@ -63,7 +62,7 @@ def test_latency(input_size=(1, 3, 224, 224), avg_run=100):
     end = perf_counter()
     ms = (end-start) * 1e3
     ms /= avg_run
-    print(f"MobileNetV1 on CPU, threads = {torch.get_num_threads()}, number of CPU: {multiprocessing.cpu_count()}, latency = {ms} ms, averaged over {avg_run} runs.")    
+    print(f"MobileNetV1 on CPU, core number = {torch.get_num_threads()}, latency = {ms} ms, averaged over {avg_run} runs.")    
 
 if __name__=='__main__':
     # model check

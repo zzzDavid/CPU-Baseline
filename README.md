@@ -34,6 +34,7 @@ NUMA node1 CPU(s):     10-19,30-39
 
 ## Method
 The bash script uses `taskset` command to assign a list of CPUs to the python process.
+The test is implemented with Python's multiprocessing package.
 
 ## Result
 ```bash
